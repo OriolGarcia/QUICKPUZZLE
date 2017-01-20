@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
@@ -12,7 +13,32 @@
     tools:context="com.dam2.android.quickpuzzle.MainActivity">
 
     <TextView
+        android:text="QuickPuzzle!"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"/>
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="76dp"
+        android:id="@+id/textView4"
+        android:textSize="36sp"
+        android:textStyle="normal|bold|italic"/>
+
+    <Button
+        android:text="Play Game "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btPlay"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:fabSize="mini"
+        app:srcCompat="@android:drawable/ic_lock_silent_mode"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp"
+        android:id="@+id/floatingActionButton"/>
 </RelativeLayout>
