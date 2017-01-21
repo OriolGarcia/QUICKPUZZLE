@@ -21,6 +21,8 @@
         </activity>
         <activity android:name=".GameFragment">
         </activity>
+        <activity android:name=".ProvaActivity">
+        </activity>
     </application>
 
 </manifest>
