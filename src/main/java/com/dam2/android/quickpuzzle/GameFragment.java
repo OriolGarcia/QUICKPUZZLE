@@ -29,8 +29,8 @@ public class GameFragment extends Fragment {
     public Integer[] mThumbIds = {
             R.drawable.peca, R.drawable.peca,
             R.drawable.peca, R.drawable.peca,
+            R.drawable.peca,  R.drawable.peca,
             R.drawable.peca,  R.drawable.peca
-
 
     };
 public static GameFragment newInstance(){

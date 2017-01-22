@@ -13,8 +13,8 @@ public class GameActivitySenseFragment extends Activity {
     public Integer[] mThumbIds = {
             R.drawable.peca, R.drawable.peca,
             R.drawable.peca, R.drawable.peca,
+            R.drawable.peca,  R.drawable.peca,
             R.drawable.peca,  R.drawable.peca
-
 
     };
     @Override
