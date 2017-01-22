@@ -7,7 +7,7 @@ import android.widget.GridView;
 
 import com.dam2.android.quickpuzzle.Draganddrop.ImageAdapter;
 
-public class ProvaActivity extends Activity {
+public class GameActivitySenseFragment extends Activity {
 
     // Keep all Images in array
     public Integer[] mThumbIds = {

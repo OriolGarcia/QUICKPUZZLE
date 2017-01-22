@@ -17,11 +17,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View arg0) {
         switch(arg0.getId()){
             case R.id.btPlay:
-                Intent intent = new Intent(this, ProvaActivity.class);
+                Intent intent = new Intent(this, GameActivity.class);
                 startActivity(intent);
                 break;
             case R.id.btPlayMyPhoto:
-                Intent intent2 = new Intent(this, ProvaActivity.class);
+                Intent intent2 = new Intent(this, GameActivitySenseFragment.class);
                 startActivity(intent2);
                 break;
         }
