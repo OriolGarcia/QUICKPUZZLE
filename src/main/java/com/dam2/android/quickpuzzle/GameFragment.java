@@ -61,8 +61,10 @@ public static GameFragment newInstance(){
         public PecaHolder(LayoutInflater inflater, ViewGroup container){
 
             super(inflater.inflate(R.layout.list_item, container,false));
+            RelativeLayout rel = (RelativeLayout) itemView.findViewById(R.id.containerpiecepuzzle);
+            rel.setOnDragListener(new MyDragListener());
             mImage=(ImageView) itemView.findViewById( R.id.list_item_image);
-            container.setOnDragListener(new MyDragListener());
+            mImage.setOnTouchListener(new MyTouchListener());
         }
     }
 
@@ -83,7 +85,7 @@ public static GameFragment newInstance(){
             @Override
             public void onBindViewHolder(PecaHolder holder, int position) {
                 holder.mImage.setImageResource( mThumbIds[position] );
-                holder.mImage.setOnTouchListener(new MyTouchListener());
+
 
             }
 
@@ -127,14 +129,14 @@ class MyDragListener implements View.OnDragListener {
                 break;
             case DragEvent.ACTION_DROP:
                 // Dropped, reassign View to ViewGroup
-                v.setX(event.getX());
-                v.setY(event.getY());
-               /* View view = (View) event.getLocalState();
+                //v.setX(event.getX());
+               // v.setY(event.getY());
+                View view = (View) event.getLocalState();
                 ViewGroup owner = (ViewGroup) view.getParent();
                 owner.removeView(view);
-                LinearLayout container = (LinearLayout) v;
+                RelativeLayout container = (RelativeLayout) v;
                 container.addView(view);
-                view.setVisibility(View.VISIBLE);*/
+                view.setVisibility(View.VISIBLE);
                 break;
             case DragEvent.ACTION_DRAG_ENDED:
                 //  v.setBackgroundDrawable(normalShape);
