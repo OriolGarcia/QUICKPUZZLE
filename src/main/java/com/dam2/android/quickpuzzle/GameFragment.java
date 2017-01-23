@@ -36,9 +36,11 @@ public class GameFragment extends Fragment {
             R.drawable.peca
 
     };
-public static GameFragment newInstance(){
-    return new GameFragment();
-}
+
+    public static GameFragment newInstance(){
+        return new GameFragment();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -49,7 +51,7 @@ public static GameFragment newInstance(){
         // Instance of ImageAdapter Class
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),3));
         recyclerView.setAdapter( new ImageAdapter2(mThumbIds) );
-
+       // recyclerView.setOnDragListener(new MyDragListener());
         return v;
     }
 
@@ -59,13 +61,14 @@ public static GameFragment newInstance(){
     private class PecaHolder extends RecyclerView.ViewHolder{
 
         private ImageView mImage;
+        private RelativeLayout rel;
         public PecaHolder(LayoutInflater inflater, ViewGroup container){
 
             super(inflater.inflate(R.layout.list_item, container,false));
-            RelativeLayout rel = (RelativeLayout) itemView.findViewById(R.id.containerpiecepuzzle);
+            rel = (RelativeLayout) itemView.findViewById(R.id.containerpiecepuzzle);
             rel.setOnDragListener(new MyDragListener());
 
-            mImage=(ImageView) itemView.findViewById( R.id.list_item_image);
+            mImage=(ImageView) rel.findViewById( R.id.list_item_image);
             mImage.setOnTouchListener(new MyTouchListener());
         }
     }
@@ -86,8 +89,9 @@ public static GameFragment newInstance(){
 
             @Override
             public void onBindViewHolder(PecaHolder holder, int position) {
-
+                if (position!= mThumbIds.length-1)
                 holder.mImage.setImageResource( mThumbIds[position] );
+                holder.rel.setId( position );
 
 
             }
@@ -122,7 +126,6 @@ class MyDragListener implements View.OnDragListener {
         int action = event.getAction();
         switch (event.getAction()) {
             case DragEvent.ACTION_DRAG_STARTED:
-                // do nothing
                 break;
             case DragEvent.ACTION_DRAG_ENTERED:
                 //  v.setBackgroundDrawable(enterShape);
@@ -134,14 +137,17 @@ class MyDragListener implements View.OnDragListener {
                 // Dropped, reassign View to ViewGroup
                 //v.setX(event.getX());
                // v.setY(event.getY());
+
                 View view = (View) event.getLocalState();
                 ViewGroup owner = (ViewGroup) view.getParent();
                 owner.removeView(view);
                 RelativeLayout container = (RelativeLayout) v;
+                container.getId();
                 container.addView(view);
                 view.setVisibility(View.VISIBLE);
                 break;
             case DragEvent.ACTION_DRAG_ENDED:
+
                 //  v.setBackgroundDrawable(normalShape);
             default:
                 break;
