@@ -32,7 +32,8 @@ public class GameFragment extends Fragment {
             R.drawable.peca, R.drawable.peca,
             R.drawable.peca, R.drawable.peca,
             R.drawable.peca,  R.drawable.peca,
-            R.drawable.peca,  R.drawable.peca
+            R.drawable.peca,  R.drawable.peca,
+            R.drawable.peca
 
     };
 public static GameFragment newInstance(){
@@ -63,6 +64,7 @@ public static GameFragment newInstance(){
             super(inflater.inflate(R.layout.list_item, container,false));
             RelativeLayout rel = (RelativeLayout) itemView.findViewById(R.id.containerpiecepuzzle);
             rel.setOnDragListener(new MyDragListener());
+
             mImage=(ImageView) itemView.findViewById( R.id.list_item_image);
             mImage.setOnTouchListener(new MyTouchListener());
         }
@@ -84,6 +86,7 @@ public static GameFragment newInstance(){
 
             @Override
             public void onBindViewHolder(PecaHolder holder, int position) {
+
                 holder.mImage.setImageResource( mThumbIds[position] );
 
 
