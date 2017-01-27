@@ -50,7 +50,7 @@ public class GameFragment extends Fragment {
 
         // Instance of ImageAdapter Class
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),3));
-        recyclerView.setAdapter( new ImageAdapter2(mThumbIds) );
+        recyclerView.setAdapter( new ImageAdapter2(mThumbIds,getContext()) );
        // recyclerView.setOnDragListener(new MyDragListener());
         return v;
     }
@@ -58,42 +58,78 @@ public class GameFragment extends Fragment {
 
 
 
-    private class PecaHolder extends RecyclerView.ViewHolder{
 
-        private ImageView mImage;
-        private RelativeLayout rel;
-        public PecaHolder(LayoutInflater inflater, ViewGroup container){
-
-            super(inflater.inflate(R.layout.list_item, container,false));
-            rel = (RelativeLayout) itemView.findViewById(R.id.containerpiecepuzzle);
-            rel.setOnDragListener(new MyDragListener());
-
-            mImage=(ImageView) rel.findViewById( R.id.list_item_image);
-            mImage.setOnTouchListener(new MyTouchListener());
-        }
     }
 
-        private class ImageAdapter2 extends RecyclerView.Adapter<PecaHolder>{
+         class ImageAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             private Integer[] mThumbIds;
-           // private Context context;
+            private  Context mContext;
+           private class PecaHolder extends RecyclerView.ViewHolder{
 
-            public ImageAdapter2(Integer[] mThumbIds) {
+                private ImageView mImage;
+                private RelativeLayout rel;
+                public PecaHolder(LayoutInflater inflater, ViewGroup container){
+
+                    super(inflater.inflate(R.layout.list_item, container,false));
+                    rel = (RelativeLayout) itemView.findViewById(R.id.containerpiecepuzzle);
+                    rel.setOnDragListener(new MyDragListener());
+
+                    mImage=(ImageView) rel.findViewById( R.id.list_item_image);
+                  mImage.setOnTouchListener(new MyTouchListener());
+                }
+            }
+            private class PecaHolder2 extends RecyclerView.ViewHolder {
+
+                ;
+                private RelativeLayout rel;
+
+                public PecaHolder2(LayoutInflater inflater, ViewGroup container) {
+
+                    super( inflater.inflate( R.layout.list_item2, container, false ) );
+                    rel = (RelativeLayout) itemView.findViewById( R.id.containerpiecepuzzle2 );
+                    rel.setOnDragListener( new MyDragListener() );
+                    Log.v( " Type2: " , "2");
+
+                }
+            }
+           @Override
+           public int getItemViewType(int position) {
+              if(position==mThumbIds.length-1)
+               return 2;
+               else return 1;
+           }
+            public ImageAdapter2(Integer[] mThumbIds, Context context) {
                 this.mThumbIds=mThumbIds;
+                this.mContext= context;
                 //this.context = context;
             }
             @Override
-            public PecaHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-                LayoutInflater inflater = LayoutInflater.from(getActivity() );
-                return new PecaHolder( inflater,parent );
+            public  RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                LayoutInflater inflater = LayoutInflater.from(mContext);
+                switch (viewType) {
+                    case 2:
+                        return new PecaHolder2( inflater, parent );
+
+                    default:
+                        return new PecaHolder( inflater, parent );
+
+                }
             }
 
-            @Override
-            public void onBindViewHolder(PecaHolder holder, int position) {
-                if (position!= mThumbIds.length-1)
-                holder.mImage.setImageResource( mThumbIds[position] );
-                holder.rel.setId( position );
+             @Override
+            public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
+                switch (holder.getItemViewType()) {
+                    case 1:
+                        PecaHolder viewHolder = (PecaHolder) holder;
+                        viewHolder.mImage.setImageResource( mThumbIds[position] );
+                        Log.v( " Type: " , "1");
+                        break;
 
-
+                    case 2:
+                        Log.v( " Type: " , "2");
+                        PecaHolder2 viewHolder2 = (PecaHolder2) holder;
+                        break;
+                }
             }
 
             @Override
@@ -101,7 +137,7 @@ public class GameFragment extends Fragment {
                 return mThumbIds.length;
             }
         }
-}
+
 class MyTouchListener implements View.OnTouchListener {
     public boolean onTouch(View view, MotionEvent motionEvent) {
         if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
@@ -141,6 +177,9 @@ class MyDragListener implements View.OnDragListener {
                 View view = (View) event.getLocalState();
                 ViewGroup owner = (ViewGroup) view.getParent();
                 owner.removeView(view);
+              View view2=new View(view.getContext());;
+
+               owner.addView( view2 );
                 RelativeLayout container = (RelativeLayout) v;
                 container.getId();
                 container.addView(view);
